@@ -12,7 +12,7 @@ const PLAN=[
 const MESOS=['Base y adaptación','Base aeróbica','Fuerza-resistencia','Umbral','Velocidad','Economía','5 km','10 km','Cuestas y trail','Consolidación','Específico','Puesta a punto','Evaluación'];
 const COLORS=['#5eead4','#76a9ff','#b996ff','#ffad5c'];
 const defaultData=()=>({version:2,sessions:[],sets:{},food:[],weight:[],wellness:[],settings:{name:'',units:'kg'}});
-function load(){try{let x=JSON.parse(localStorage.getItem('nutrifit-v2'));return {...defaultData(),...x}}catch{return defaultData()}}let data=load(),page='Hoy',tab='Sesión',week=1,timer;
+function load(){try{let x=JSON.parse(localStorage.getItem('nutrifit-v2'));return {...defaultData(),...x}}catch{return defaultData()}}let data=load(),page='Hoy',tab='Plan',week=1,timer;
 const el=id=>document.getElementById(id), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function save(){localStorage.setItem('nutrifit-v2',JSON.stringify(data))}function dateFor(w,d){let x=new Date(START);x.setDate(x.getDate()+(w-1)*7+d);return x}function shortDate(x){return x.toLocaleDateString('es-ES',{day:'numeric',month:'short'})}function todayIndex(){return (new Date().getDay()+6)%7}function btn(t,js,c=''){return `<button class="${c}" onclick="${js}">${t}</button>`}
 function nav(){let items=[['⌂','Hoy'],['◆','Entreno'],['◉','Nutrición'],['↗','Progreso'],['♡','Salud'],['▦','Biblioteca']];el('nav').innerHTML=items.map(([i,x])=>`<button class="${page===x?'on':''}" onclick="page='${x}';render()"><b>${i}</b>${x}</button>`).join('')+'<small class="sidePrivacy">Tus datos viven solo en este navegador.</small>'}
